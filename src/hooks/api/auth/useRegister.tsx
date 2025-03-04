@@ -1,8 +1,8 @@
-import axios, { AxiosError } from "axios";
-import { BASE_URL } from "@/utils/api";
-import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { axiosInstance } from "@/lib/axios";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 interface Payload {
   firstName: string;
@@ -44,11 +44,11 @@ const useRegister = () => {
       });
     },
     onSuccess: () => {
-      alert("Register berhasil");
+      toast.success("Register berhasil");
       router.push("/login");
     },
     onError: (error: AxiosError<{ message: string; code: number }>) => {
-      alert(error.response?.data.message);
+      toast.error(error.response?.data.message);
     },
   });
 };
